@@ -11,8 +11,11 @@ double eval(int* pj){
 		}
 	}
 
-	if (sumOdds <= 50 && sumOdds >= 45){
+	if (sumOdds == 50){
 		return 100.;
+	}
+	else if (sumOdds >= 45 && sumOdds < 50){
+		return 75
 	}
 	else if (sumOdds < 45 && sumOdds >=25){
 		return 50.;
