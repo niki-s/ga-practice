@@ -142,7 +142,7 @@ void hillclimber(){
 	//attempt 2
 
 	//while(bestFitness < 100){
-	for (i = 0; i < 1000000; i++){
+	for (i = 0; i < 10000; i++){
 		vec = modifyVec(bestVec);
 		randomVec = createRandomVec();
 
@@ -158,12 +158,8 @@ void hillclimber(){
 		}
 	}
 
-	if (bestFitness == 70){
-		std::cout << "It's 70 again :/" << std::endl;
-	}
-	else{
-		std::cout << "best fitness = " << bestFitness << std::endl;
-	}
+
+	std::cout << "best fitness = " << bestFitness << std::endl;
 	std::cout << "in total iterations: " << i << std::endl;
 	std::cout << "with vector: " << std::endl;
 	for(i = 0; i < 100; i++){
