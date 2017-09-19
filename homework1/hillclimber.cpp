@@ -32,6 +32,7 @@ int main(int argc, char const *argv[])
   int bestFitness = 0;
   int fitness = 0;
 
+  srand (time(NULL));
   int randIndex1 = 0;
   int randIndex2 = 0;
 
