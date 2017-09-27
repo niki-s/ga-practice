@@ -16,7 +16,6 @@ void xSquared(ga::Individual *ent);
 void firstDeJong(ga::Individual *ent);
 void secondDeJong(ga::Individual *ent);
 void thirdDeJong(ga::Individual *ent);
-void forthDeJong(ga::Individual *ent);
-void fifthDeJong(ga::Individual *ent);
+void fourthDeJong(ga::Individual *ent);
 void convertToString(int *vec, int size, char *chrom);
 #endif /* EVALUATE_H_ */

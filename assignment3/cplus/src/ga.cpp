@@ -98,16 +98,26 @@ void GA::updateProgress(unsigned int gen, Population *p){
 
 
 void GA::report(){
-  //parent->report(options.maxgens);
-  cout << *(parent->pop[parent->maxi]) << endl;
-	float x1 = decode(parent->pop[parent->maxi]->chrom, 0, 5, -5.12, 5.12);
-	float x2 = decode(parent->pop[parent->maxi]->chrom, 5, 10, -5.12, 5.12);
-	float x3 = decode(parent->pop[parent->maxi]->chrom, 10, 15, -5.12, 5.12);
-	float x4 = decode(parent->pop[parent->maxi]->chrom, 15, 20, -5.12, 5.12);
-	float x5 = decode(parent->pop[parent->maxi]->chrom, 20, 25, -5.12, 5.12);
+	int startLen = 0;
+	int chromSectionLen = 5;
+	float val = 0.0;
+	//parent->report(options.maxgens);
+	cout << *(parent->pop[parent->maxi]) << endl;
+	// for (int i = 0; i < 30; i++) {
+	// 	//val = decode(ent->chrom, i, i+1, -65.536, 65.536);
+	// 	val = decode(parent->pop[parent->maxi]->chrom, startLen, startLen+chromSectionLen, -1.28, 1.28);
+	// 	cout << val << " ";
+	// 	startLen += chromSectionLen;
+	// }
+	// cout << endl;
+	//float x1 = decode(parent->pop[parent->maxi]->chrom, 0, 5, -2.048, 2.048);
+	//float x2 = decode(parent->pop[parent->maxi]->chrom, 5, 10, -2.048, 2.048);
+	// float x3 = decode(parent->pop[parent->maxi]->chrom, 10, 15, -5.12, 5.12);
+	// float x4 = decode(parent->pop[parent->maxi]->chrom, 15, 20, -5.12, 5.12);
+	// float x5 = decode(parent->pop[parent->maxi]->chrom, 20, 25, -5.12, 5.12);
 
 	//cout << x1 << ", " << x2 << ", " << x3 << endl;
-	cout << x1 << ", " << x2 << ", " << x3 << ", " << x4 << ", " << x5 << endl;
+	//cout << x1 << ", " << x2 << endl;//", " << x3 << ", " << x4 << ", " << x5 << endl;
 }
 
 void GA::configure(){
@@ -126,16 +136,17 @@ void GA::configure(){
 
 void GA::setupOptions(int argc, char *argv[]){
 
-	options.randomSeed = 178;
+	options.randomSeed = 177;
 	options.infile = string("infile");
 	options.outfile = string("outfile_177");// append randomseed to output file names
 
-	options.popSize = 100;
+	options.popSize = 60;
 	//15 for #1
 	//10 for #2
 	//25 for #3
-	options.chromLength = 25;
-	options.maxgens = 5;
+	//150 for #4
+	options.chromLength = 150;
+	options.maxgens = 80;
 	options.px = 0.7f;
 	options.pm = 0.001f;
 	options.scaler = 1.05;
