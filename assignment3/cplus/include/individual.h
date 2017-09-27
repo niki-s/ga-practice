@@ -3,6 +3,9 @@
  *
  *  Created on: Feb 2, 2016
  *      Author: sushil
+ *
+ *	Used for assignment 3 in CS776 by Niki Silveria Sept 22, 2017
+ *  https://www.cse.unr.edu/~sushil/class/gas/code/cplus/
  */
 
 #ifndef INDIVIDUAL_H_
