@@ -14,7 +14,7 @@ def main():
 		print "please specify path to output files directory"
 	else:
 		path = sys.argv[1]
-	print path
+
 	filelist = os.listdir(path)
 
 	for file in filelist:
@@ -47,10 +47,11 @@ def main():
 		avgY.append(np.average(avgYs))
 		maxY.append(np.average(maxYs))
 
-	for run in range(len(outputs)):
-		print outputs[run][0]
+	# for run in range(len(outputs)):
+	# 	print outputs[run][0]
 
 	plt.plot(gens, maxY, 'g', gens, avgY, 'b', gens, minY, 'r')
+	plt.title(path)
 	plt.ylabel('fitness')
 	plt.xlabel('generation')
 	plt.show()
