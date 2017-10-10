@@ -1,3 +1,6 @@
+# Used for assignment 3 in CS776 by Niki Silveria Sept 22, 2017
+# https://www.cse.unr.edu/~sushil/class/gas/code/cplus/
+
 import numpy as np
 import matplotlib.pyplot as plt
 

@@ -5,7 +5,10 @@
 // Copyright   : Copyright University of Nevada, Reno
 // Description : GA in C++, Ansi-style
 //============================================================================
-
+/*
+ *	Used and edited for assignment 3 in CS776 by Niki Silveria Sept 22, 2017
+ *  https://www.cse.unr.edu/~sushil/class/gas/code/cplus/
+*/
 #include <iostream>
 #include <fstream>
 #include <stdlib.h>
