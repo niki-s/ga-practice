@@ -1,15 +1,16 @@
 import random
 import math
 import sys
+import pickle
 from individual import individual
 
-POPSIZE = 10
+POPSIZE = 200
 CHROMSIZE = 10
 LAMBDA = POPSIZE
-GENERATIONS = 5
+GENERATIONS = 1500
 
-Px = 0.8
-Pm = 0.01
+Px = 0.9
+Pm = 0.06
 
 def initPop(cityList):
 	population = []
@@ -29,13 +30,11 @@ def evaluate(population):
 		individual.fitness = totalDist
 
 def crossover(parent1, parent2):
-	# copy the parents into the children
-	child1 = [0] * len(parent1)
-	child2 = [0] * len(parent2)
-
 	#if doWithProb returns true, perform pmx crossover
 	if doWithProb(Px):
-		return child1, child2
+		# fill children with 0's
+		child1 = [0] * len(parent1)
+		child2 = [0] * len(parent2)
 		#select portion of string to copy over
 		index1 = random.randint(0,CHROMSIZE-1)
 		index2 = index1 + int(CHROMSIZE/5) + random.randint(0,5) # doesn't matter if its larger than end of list, won't run over
@@ -44,7 +43,28 @@ def crossover(parent1, parent2):
 		child1[index1:index2] = parent1[index1:index2]
 		child2[index1:index2] = parent2[index1:index2]
 
-		# do the stuff
+		# do the stuff for child 1
+		for val in parent2[index1:index2]:
+			testInd = parent2.index(val)
+			while val not in child1:
+				#print val, child1, testInd
+				check = parent1[testInd]
+				checkIndex = parent2.index(check)
+				if checkIndex >= index1 and checkIndex < index2:
+					testInd = checkIndex
+				else:
+					child1[checkIndex] = val
+
+		# and the same for child 2
+		for val in parent1[index1:index2]:
+			testInd = parent1.index(val)
+			while val not in child2:
+				check = parent2[testInd]
+				checkIndex = parent1.index(check)
+				if checkIndex >= index1 and checkIndex < index2:
+					testInd = checkIndex
+				else:
+					child2[checkIndex] = val
 
 		# copy the rest of the values to the children
 		for i in range(len(parent1)):
@@ -63,6 +83,8 @@ def crossover(parent1, parent2):
 
 	#else just return the two children no edits
 	else:
+		child1 = list(parent1)
+		child2 = list(parent2)
 		# chance for children with no crossover to mutate too
 		if doWithProb(Pm):
 			mutate(child1)
@@ -112,16 +134,17 @@ def openFile(file):
 		c[2] = float(c[2])
 
 	# print cities
+	file.close()
 	return cities
 
-def avgFitness(population):
+def avgDistance(population):
 	totalFit = 0.0
 	for individual in population:
 		totalFit += individual.fitness
 
 	return totalFit/float(POPSIZE)
 
-def maxFitness(population):
+def maxDistance(population):
 	currentMax = 0
 	for individual in population:
 		if individual.fitness > currentMax:
@@ -129,7 +152,7 @@ def maxFitness(population):
 
 	return currentMax
 
-def minFitness(population):
+def minDistance(population):
 	currentMin = 0
 	for individual in population:
 		if currentMin == 0:
@@ -145,6 +168,8 @@ def main():
 
 	filename = sys.argv[1]
 	seed = sys.argv[2]
+	saveFile = "outfile" + seed
+	outData = []
 
 	#cityList = openFile('tsps/burma14.tsp')
 	cityList = openFile(filename)
@@ -164,6 +189,7 @@ def main():
 
 	# reproduce, double population via random selection and etc, for each generation
 	for i in range(GENERATIONS):
+		#print "Gen:", i
 		#crossover double pop
 		for j in range(LAMBDA/2):
 			parent1 = getRandomIndividual(pop)
@@ -191,8 +217,19 @@ def main():
 		# print "aftercull"
 		# for ind in pop:
 		# 	print ind.fitness
-	for ind in pop:
-		print ind.fitness
+
+		# append new generation info to out data
+		genInfo = [i, minDistance(pop), avgDistance(pop), maxDistance(pop)]
+		if i % 50 == 0:
+			print genInfo
+
+		outData.append(genInfo)
+
+	pickle.dump(outData, open(saveFile, 'w'))
+
+	# for ind in pop:
+	# 	print ind.fitness
+
 
 if __name__ == '__main__':
 	main()
